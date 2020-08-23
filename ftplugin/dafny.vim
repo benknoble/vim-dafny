@@ -2,10 +2,11 @@ setlocal expandtab
 setlocal shiftwidth=2 softtabstop=2
 
 setlocal comments=s1:/*,mb:*,ex:*/,://
+setlocal commentstring=//%s
 
 let b:undo_ftplugin = get(b:, 'undo_ftplugin', '')
 if !empty(b:undo_ftplugin)
   let b:undo_ftplugin .= '|'
 endif
 let b:undo_ftplugin .= 'setlocal expandtab< shiftwidth< softtabstop<'
-let b:undo_ftplugin .= 'setlocal comments<'
+let b:undo_ftplugin .= 'setlocal comments< commentstring<'
