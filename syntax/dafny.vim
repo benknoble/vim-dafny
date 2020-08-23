@@ -27,7 +27,9 @@ syntax keyword dafnyStatement assume assert return yield new print break label w
 syntax keyword dafnyKeyword var ghost returns yields null static protected this refines include inductive exclusively const
 syntax keyword dafnyType bool char nat int real set multiset seq string map imap object array array2 array3
 syntax keyword dafnyLogic requires ensures modifies reads decreases invariant
-syntax keyword dafnyOperator forall exists old fresh
+syntax keyword dafnyOperator old fresh
+syntax keyword dafnyOperator forall conceal cchar=∀
+syntax keyword dafnyOperator exists conceal cchar=∃
 syntax keyword dafnyBoolean true false
 
 syntax region dafnyString start=/"/ skip=/\\"/ end=/"/
