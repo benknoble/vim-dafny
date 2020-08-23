@@ -11,5 +11,5 @@ if !empty(b:undo_ftplugin)
   let b:undo_ftplugin .= '|'
 endif
 let b:undo_ftplugin .= 'setlocal expandtab< shiftwidth< softtabstop<'
-let b:undo_ftplugin .= 'setlocal comments< commentstring<'
-let b:undo_ftplugin .= 'setlocal suffixesadd<'
+let b:undo_ftplugin .= ' | setlocal comments< commentstring<'
+let b:undo_ftplugin .= ' | setlocal suffixesadd<'
