@@ -45,6 +45,7 @@ syntax match dafnyOperator "<==" conceal cchar=⇐
 syntax match dafnyOperator "<==>" conceal cchar=⇔
 syntax match dafnyOperator "|"
 syntax match dafnyOperator "::" conceal cchar=∷
+syntax match dafnyOperator ":="
 
 highlight link dafnyFunction Function
 highlight link dafnyMethod Statement
