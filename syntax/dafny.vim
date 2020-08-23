@@ -38,11 +38,11 @@ syntax region dafnyComment start="/\*" end="\*/"
 syntax match dafnyNumber /\d\+\>/
 syntax match dafnyIdentifier /\<\w\+\>/
 
-syntax match dafnyOperator "==>"
-syntax match dafnyOperator "<=="
-syntax match dafnyOperator "<==>"
+syntax match dafnyOperator "==>" conceal cchar=⇒
+syntax match dafnyOperator "<==" conceal cchar=⇐
+syntax match dafnyOperator "<==>" conceal cchar=⇔
 syntax match dafnyOperator "|"
-syntax match dafnyOperator "::"
+syntax match dafnyOperator "::" conceal cchar=∷
 
 highlight link dafnyFunction Function
 highlight link dafnyMethod Statement
