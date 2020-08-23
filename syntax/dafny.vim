@@ -14,8 +14,6 @@ elseif exists("b:current_syntax") && b:current_syntax != "dafny"
   finish
 endif
 
-" reset syntax highlighting for the current buffer.
-syntax clear
 " dafny is case sensitive.
 syntax case match
 
