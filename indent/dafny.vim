@@ -10,8 +10,6 @@ setlocal indentkeys-=0#
 setlocal indentkeys+==function,=method,=predicate,=lemma
 setlocal indentkeys+==requires,=ensures
 
-" if exists('*DafnyIndent') | finish | endif
-
 const s:decl_pat = '^\s*\(function\|method\|predicate\|lemma\)'
 const s:while_pat = '^\s*while'
 const s:first_line_pat = '\%1l'
