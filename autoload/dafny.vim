@@ -79,13 +79,10 @@ function dafny#indentexpr(lnum) abort
       return s:indent(s:find_prev_contract(), &l:shiftwidth)
     endif
   elseif line =~# '^\s*&&'
-    echomsg 'bullet'
     let prev_indent = s:find_prev_bullet('&&')
-    echomsg 'prev' prev_indent
     if prev_indent isnot# 0
       return s:indent(prev_indent, 0)
     else
-      echomsg 'prev' s:find_prev_contract()
       return s:indent(s:find_prev_contract(), &l:shiftwidth)
     endif
   elseif line =~# '^\s*}'
