@@ -61,6 +61,15 @@ function s:handle_bullet(bullet) abort
   endif
 endfunction
 
+function s:in_calc() abort
+  return getline(s:find_correct_nested_open_brace()) =~# '^\s*calc'
+endfunction
+
+function s:find_prev_calc() abort
+  call assert_true(s:in_calc())
+  return s:find_correct_nested_open_brace()
+endfunction
+
 function dafny#indentexpr(lnum) abort
   if a:lnum is# 0 || a:lnum is# 1
     return 0
@@ -87,6 +96,8 @@ function dafny#indentexpr(lnum) abort
     return s:handle_bullet('||')
   elseif line =~# '^\s*&&'
     return s:handle_bullet('&&')
+  elseif line =~# '^\s*\(==\|<\|>\|!=\|<=\|>=\|<==>\|<==\|==>\)' && s:in_calc()
+    return s:indent(s:find_prev_calc(), 0)
   elseif line =~# '^\s*}'
     call cursor('.', 1)
     return s:indent(s:find_correct_nested_open_brace(), 0)
