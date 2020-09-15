@@ -9,6 +9,8 @@ setlocal indentkeys-=:
 setlocal indentkeys-=0#
 setlocal indentkeys+==function,=method,=predicate,=lemma
 setlocal indentkeys+==requires,=ensures
+setlocal indentkeys+=0===,0=<,0=>,0=!=,0=<=,0=>=
+setlocal indentkeys+=0=<==>,0=<==,0===>
 
 let b:undo_indent = get(b:, 'undo_indent', '')
 if !empty(b:undo_indent)
