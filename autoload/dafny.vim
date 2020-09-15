@@ -72,16 +72,22 @@ function dafny#indentexpr(lnum) abort
     endif
     return s:indent(prev_indent, &l:shiftwidth)
   elseif line =~# '^\s*||'
-    let prev_indent = s:find_prev_bullet('||')
-    if prev_indent isnot# 0
-      return s:indent(prev_indent, 0)
+    let prev_brace = s:find_correct_nested_open_brace()
+    let prev_bullet = s:find_prev_bullet('||')
+    if prev_brace isnot# 0
+      return s:indent(prev_brace, &l:shiftwidth)
+    else if prev_bullet isnot# 0
+      return s:indent(prev_bullet, 0)
     else
       return s:indent(s:find_prev_contract(), &l:shiftwidth)
     endif
   elseif line =~# '^\s*&&'
-    let prev_indent = s:find_prev_bullet('&&')
-    if prev_indent isnot# 0
-      return s:indent(prev_indent, 0)
+    let prev_brace = s:find_correct_nested_open_brace()
+    let prev_bullet = s:find_prev_bullet('&&')
+    if prev_brace isnot# 0
+      return s:indent(prev_brace, &l:shiftwidth)
+    else if prev_bullet isnot# 0
+      return s:indent(prev_bullet, 0)
     else
       return s:indent(s:find_prev_contract(), &l:shiftwidth)
     endif
