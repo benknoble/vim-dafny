@@ -53,11 +53,11 @@ function s:handle_bullet(bullet) abort
   let prev_brace = s:find_correct_nested_open_brace()
   let prev_bullet = s:find_prev_bullet(a:bullet)
   if prev_brace isnot# 0
-    return s:indent(prev_brace, &l:shiftwidth)
+    return s:indent(prev_brace, shiftwidth())
   else if prev_bullet isnot# 0
     return s:indent(prev_bullet, 0)
   else
-    return s:indent(s:find_prev_contract(), &l:shiftwidth)
+    return s:indent(s:find_prev_contract(), shiftwidth())
   endif
 endfunction
 
@@ -80,18 +80,18 @@ function dafny#indentexpr(lnum) abort
     if prev_decl isnot# 0
       return indent(prev_decl)
     else
-      return s:indent(s:find_prev_class(), &l:shiftwidth)
+      return s:indent(s:find_prev_class(), shiftwidth())
     endif
   elseif line =~# s:full_contract_pattern
-    return s:indent(s:find_prev_decl(), &l:shiftwidth)
+    return s:indent(s:find_prev_decl(), shiftwidth())
   elseif line =~# '^\s*invariant'
-    return s:indent(s:find_prev_while(), &l:shiftwidth)
+    return s:indent(s:find_prev_while(), shiftwidth())
   elseif line =~# '^\s*decreases'
     let prev_indent = s:find_prev_while()
     if prev_indent is# 0
       let prev_indent = s:find_prev_decl()
     endif
-    return s:indent(prev_indent, &l:shiftwidth)
+    return s:indent(prev_indent, shiftwidth())
   elseif line =~# '^\s*||'
     return s:handle_bullet('||')
   elseif line =~# '^\s*&&'
@@ -102,6 +102,6 @@ function dafny#indentexpr(lnum) abort
     call cursor('.', 1)
     return s:indent(s:find_correct_nested_open_brace(), 0)
   else
-    return s:indent(s:find_correct_nested_open_brace(), &l:shiftwidth)
+    return s:indent(s:find_correct_nested_open_brace(), shiftwidth())
   endif
 endfunction
