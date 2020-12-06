@@ -15,8 +15,11 @@ function s:indent(lnum, offset) abort
 endfunction
 
 function s:find_prev_pat(pat, stoppat) abort
+  -1
   const stopline = search(a:stoppat, 'bnW')
-  return search(a:pat, 'bnW', stopline)
+  const result = search(a:pat, 'bnWc', stopline)
+  +1
+  return result
 endfunction
 
 function s:find_prev_decl() abort
@@ -28,12 +31,8 @@ function s:find_prev_while() abort
 endfunction
 
 function s:find_prev_bullet(bullet) abort
-  " dont search on the same line as the bullet
-  -1
-  let result = s:find_prev_pat(printf('^\s*%s', a:bullet),
+  return s:find_prev_pat(a:bullet,
         \ printf('\(%s\)\|\(%s\)', s:contract_pattern, s:block_stopping_pattern))
-  +1
-  return result
 endfunction
 
 function s:find_prev_contract() abort
@@ -52,10 +51,10 @@ endfunction
 function s:handle_bullet(bullet) abort
   let prev_brace = s:find_correct_nested_open_brace()
   let prev_bullet = s:find_prev_bullet(a:bullet)
-  if prev_brace isnot# 0
-    return s:indent(prev_brace, shiftwidth())
-  else if prev_bullet isnot# 0
+  if prev_bullet isnot# 0
     return s:indent(prev_bullet, 0)
+  elseif prev_brace isnot# 0
+    return s:indent(prev_brace, shiftwidth())
   else
     return s:indent(s:find_prev_contract(), shiftwidth())
   endif
