@@ -101,6 +101,9 @@ function dafny#indentexpr(lnum) abort
   elseif line =~# '^\s*}'
     call cursor('.', 1)
     return s:indent(s:find_correct_nested_open_brace(), 0)
+  elseif line =~# '^\s*{'
+    -1
+    return s:indent(s:find_correct_nested_open_brace(), shiftwidth())
   else
     return s:indent(s:find_correct_nested_open_brace(), shiftwidth())
   endif
