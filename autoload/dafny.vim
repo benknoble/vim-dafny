@@ -40,10 +40,6 @@ function s:find_prev_contract() abort
         \ printf('\(%s\)\|\(%s\)', s:decl_pat, s:block_stopping_pattern))
 endfunction
 
-function s:find_prev_class() abort
-  return s:find_prev_pat('^\s*class', s:first_line_pat)
-endfunction
-
 function s:find_correct_nested_open_brace() abort
   return searchpair('{', '', '}', 'bnW')
 endfunction
@@ -75,11 +71,11 @@ function dafny#indentexpr(lnum) abort
   endif
   const line = getline(a:lnum)
   if line =~# s:decl_pat
-    let prev_decl = s:find_prev_decl()
-    if prev_decl isnot# 0
-      return indent(prev_decl)
+    let prev_brace = s:find_correct_nested_open_brace()
+    if prev_brace isnot# 0
+      return s:indent(prev_brace, shiftwidth())
     else
-      return s:indent(s:find_prev_class(), shiftwidth())
+      return 0
     endif
   elseif line =~# s:full_contract_pattern
     return s:indent(s:find_prev_decl(), shiftwidth())
